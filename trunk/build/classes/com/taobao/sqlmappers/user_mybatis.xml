@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taobao.entity.User">
+	
+	<resultMap type="com.taobao.entity.User" id="userResult">
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<select id="idLogin" parameterType="map" resultType="int">
+		select count(1) from user where username = #{username} and password = #{password} and state = 0;
+	</select>
+	
+	<!-- 查找出用户列表 -->
+	<select id="findUserList" parameterType="map" resultMap="userResult">
+		select username,password, state from user where state = 0;
+	</select>
+	
+</mapper>
